@@ -1,0 +1,51 @@
+﻿@model house_company.Models.HouseModel
+
+@{
+    ViewData["Title"] = "House Information";
+}
+
+<div class="text-center mt-5">
+    <h1 class="display-4">House Information Capture</h1>
+    <p>Please enter the required house details below.</p>
+</div>
+
+<!-- Form using the HouseModel -->
+@using (Html.BeginForm("Index", "Home", FormMethod.Post))
+{
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="form-group mb-3">
+                <label for="HouseType" class="form-label">House Type:</label>
+                @Html.TextBoxFor(m => m.HouseType, new { @class = "form-control" })
+                <!-- Displays validation error message for HouseType -->
+                <span class="text-danger">@Html.ValidationMessageFor(m => m.HouseType)</span>
+            </div>
+
+            <div class="form-group mb-4">
+                <label for="HouseLocation" class="form-label">House Location:</label>
+                @Html.TextBoxFor(m => m.HouseLocation, new { @class = "form-control" })
+                <!-- Displays validation error message for HouseLocation -->
+                <span class="text-danger">@Html.ValidationMessageFor(m => m.HouseLocation)</span>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">Submit House Info</button>
+        </div>
+    </div>
+}
+
+<hr class="my-5" />
+
+<!-- Displaying the processed data only if the model is valid -->
+@if (ViewContext.ModelState.IsValid && (!string.IsNullOrEmpty(Model.HouseType) || !string.IsNullOrEmpty(Model.HouseLocation)))
+{
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h2 class="h4 text-success">Submitted Data Verification</h2>
+            <div class="alert alert-info">
+                <p><strong>Captured House Type:</strong> @Model.HouseType</p>
+                <p><strong>Captured House Location:</strong> @Model.HouseLocation</p>
+                <p class="mb-0">Data received. Check the **Output/Debug** window in Visual Studio for **Console Verification**.</p>
+            </div>
+        </div>
+    </div>
+} 
